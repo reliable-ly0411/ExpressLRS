@@ -174,7 +174,6 @@ uint32_t LastValidPacket = 0;           //Time the last valid packet was recv
 uint32_t LastSyncPacket = 0;            //Time the last valid packet was recv
 
 static uint32_t SendLinkStatstoFCintervalLastSent;
-static uint8_t SendLinkStatstoFCForcedSends;
 
 int16_t RFnoiseFloor; //measurement of the current RF noise floor
 #if defined(DEBUG_RX_SCOREBOARD)
@@ -212,6 +211,11 @@ void reconfigureSerial();
 uint8_t getLq()
 {
     return LQCalc.getLQ();
+}
+
+bool getGpsTelemetry(gps_telemetry_t &out)
+{
+    return SerialGPS::getTelemetryInfo(out);
 }
 
 static inline void checkGeminiMode()
@@ -1382,7 +1386,9 @@ static void setupSerial()
     }
     else if (config.GetSerialProtocol() == PROTOCOL_GPS)
     {
-        serialIO = new SerialGPS(SERIAL_PROTOCOL_TX, SERIAL_PROTOCOL_RX);
+        // Serial(0) is always assigned in a way that it uses two pins, only Serial1 is allowed to not have both RX/TX
+        const int8_t gpsTxPin = (GPIO_PIN_RCSIGNAL_TX == UNDEF_PIN) ? U0TXD_GPIO_NUM : GPIO_PIN_RCSIGNAL_TX;
+        serialIO = new SerialGPS(SERIAL_PROTOCOL_RX, gpsTxPin);
     }
     else if (hottTlmSerial)
     {
@@ -1485,8 +1491,13 @@ static void setupSerial1()
             serial1IO = new SerialDisplayport(SERIAL1_PROTOCOL_TX, SERIAL1_PROTOCOL_RX);
             break;
         case PROTOCOL_SERIAL1_GPS:
-            Serial1.begin(115200, SERIAL_8N1, serial1RXpin, serial1TXpin, false);
-            serial1IO = new SerialGPS(SERIAL1_PROTOCOL_TX, SERIAL1_PROTOCOL_RX);
+            // Without an RX pin there is nothing to listen to, and without a TX pin (or with it
+            // shared with RX) the GPS can be read but not configured
+            if (serial1RXpin != UNDEF_PIN)
+            {
+                Serial1.begin(115200, SERIAL_8N1, serial1RXpin, serial1TXpin, false);
+                serial1IO = new SerialGPS(SERIAL1_PROTOCOL_TX, serial1TXpin == serial1RXpin ? UNDEF_PIN : serial1TXpin);
+            }
             break;
     }
 }
@@ -1642,7 +1653,6 @@ static void cycleRfMode(unsigned long now)
         RFmodeLastCycled = now;
         LastSyncPacket = now;           // reset this variable
         // Display the current air rate to the user as an indicator something is happening
-        SendLinkStatstoFCForcedSends = 2;
         SetRFLinkRate(scanIndex % RATE_MAX, false); // switch between rates
         LQCalc.reset100();
         LQCalcDVDA.reset100();
@@ -1845,16 +1855,14 @@ static void checkSendLinkStatsToFc(uint32_t now)
         }
 
         if ((connectionState != disconnected && connectionHasModelMatch && teamraceHasModelMatch) ||
-            SendLinkStatstoFCForcedSends)
+            connectionState == disconnected)
         {
             CRSF_MK_FRAME_T(crsfLinkStatistics_t) linkStatisticsFrame;
             crsfRouter.makeLinkStatisticsPacket(&linkStatisticsFrame.h);
             // the linkStats 'originates' from the OTA connector so we don't send it back there.
             crsfRouter.deliverMessage(&otaConnector, &linkStatisticsFrame.h);
-            SendLinkStatstoFCintervalLastSent = now;
-            if (SendLinkStatstoFCForcedSends)
-                --SendLinkStatstoFCForcedSends;
         }
+        SendLinkStatstoFCintervalLastSent = now;
     }
 }
 
@@ -2107,8 +2115,6 @@ void loop()
         LostConnection(true);
         LastSyncPacket = now;           // reset this variable to stop rf mode switching and add extra time
         RFmodeLastCycled = now;         // reset this variable to stop rf mode switching and add extra time
-        SendLinkStatstoFCintervalLastSent = 0;
-        SendLinkStatstoFCForcedSends = 2;
     }
 
     if (connectionState == tentative && (now - LastSyncPacket > ExpressLRS_currAirRate_RFperfParams->RxLockTimeoutMs))

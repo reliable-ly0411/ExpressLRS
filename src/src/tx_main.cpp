@@ -16,12 +16,14 @@
 #include "devButton.h"
 #include "devVTX.h"
 #if defined(PLATFORM_ESP32)
-#include "devScreen.h"
 #include "devBLE.h"
+#include "devBackpack.h"
+#if !defined(PLATFORM_ESP32_C3)
+#include "devScreen.h"
 #include "devGsensor.h"
 #include "devThermal.h"
 #include "devPDET.h"
-#include "devBackpack.h"
+#endif
 #else
 // Fake functions for 8285
 void checkBackpackUpdate() {}
@@ -106,8 +108,8 @@ device_affinity_t ui_devices[] = {
   {&WIFI_device, 0},
   {&Button_device, 0},
 #if defined(PLATFORM_ESP32)
-  {&Backpack_device, 0},
   {&BLE_device, 0},
+  {&Backpack_device, 0},
 #if !defined(PLATFORM_ESP32_C3)
   {&Screen_device, 0},
   {&Gsensor_device, 0},
@@ -1396,13 +1398,16 @@ void setup()
     Radio.RXdoneCallback = &RXdoneISR;
     Radio.TXdoneCallback = &TXdoneISR;
 
-    crsfTransmitter.begin();
-    crsfRouter.addConnector(&otaConnector);
-    crsfRouter.addEndpoint(&crsfTransmitter);
-    crsfRouter.addConnector(&usbConnector);
-    // When a CRSF handset is detected, it will add itself to the router
+    if (!firmwareOptions.is_airport)
+    {
+      crsfTransmitter.begin();
+      crsfRouter.addConnector(&otaConnector);
+      crsfRouter.addEndpoint(&crsfTransmitter);
+      crsfRouter.addConnector(&usbConnector);
 
-    handset->registerCallbacks(UARTconnected, firmwareOptions.is_airport ? nullptr : UARTdisconnected);
+      // When a CRSF handset is detected, it will add itself to the router
+      handset->registerCallbacks(UARTconnected, firmwareOptions.is_airport ? nullptr : UARTdisconnected);
+    }
 
     config.Load(); // Load the stored values from eeprom
 
@@ -1512,10 +1517,12 @@ void loop()
   CheckConfigChangePending();
   DynamicPower_Update(now);
   VtxPitmodeSwitchUpdate();
-  checkSendLinkStatsToHandset(now);
 
-  if (DataDlReceiver.HasFinishedData())
+  if (!firmwareOptions.is_airport)
   {
+    checkSendLinkStatsToHandset(now);
+    if (DataDlReceiver.HasFinishedData())
+    {
       if (CRSFinBuffer[0] == CRSF_ADDRESS_USB)
       {
         if (config.GetLinkMode() == TX_MAVLINK_MODE)
@@ -1539,6 +1546,7 @@ void loop()
         sendCRSFTelemetryToBackpack(CRSFinBuffer);
       }
       DataDlReceiver.Unlock();
+    }
   }
 
   // only send Uplink data when binding is not active
