@@ -439,13 +439,7 @@ void SetRFLinkRate(uint8_t index) // Set speed of RF link
   bool invertIQ = InBindingMode || (UID[5] & 0x01);
   OtaSwitchMode_e newSwitchMode = (OtaSwitchMode_e)config.GetSwitchMode();
 
-  bool subGHz = FHSSconfig->freq_center < 1000000000;
-#if defined(RADIO_LR1121) || defined(RADIO_LR2021)
-  if (FHSSuseDualBand && subGHz)
-  {
-      subGHz = FHSSconfigDualBand->freq_center < 1000000000;
-  }
-#endif
+  const bool subGHz = RadioBandMod::isB900(ModParams->radio_type);
 
   if ((ModParams == ExpressLRS_currAirRate_Modparams)
     && (RFperf == ExpressLRS_currAirRate_RFperfParams)
@@ -1239,7 +1233,7 @@ static void setupSerial()
 #elif defined(PLATFORM_ESP32) && !defined(PLATFORM_ESP32_C3)
   if (GPIO_PIN_DEBUG_RX == U0RXD_GPIO_NUM && GPIO_PIN_DEBUG_TX == U0TXD_GPIO_NUM)
   {
-    // The backpack or Airpoirt is already assigned on UART0 (pins 3, 1)
+    // The backpack or Airport is already assigned on UART0 (pins 3, 1)
     // This is also USB on modules that use DIPs
     // Set TxUSB to BackpackOrLogStrm so that data goes to the same place
     TxUSB = BackpackOrLogStrm;
@@ -1252,8 +1246,8 @@ static void setupSerial()
   else
   {
     // The backpack is on a separate UART to UART0
-    // Set TxUSB to UART0 default pins so that we can access TxUSB and BackpackOrLogStrm independantly
-    TxUSB = new HardwareSerial(1);
+    // Set TxUSB to UART0 default pins so that we can access TxUSB and BackpackOrLogStrm independently
+    TxUSB = new HardwareSerial(2);
     ((HardwareSerial *)TxUSB)->begin(firmwareOptions.uart_baud, SERIAL_8N1, U0RXD_GPIO_NUM, U0TXD_GPIO_NUM);
   }
 #elif defined(PLATFORM_ESP8266)
