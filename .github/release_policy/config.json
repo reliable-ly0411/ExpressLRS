@@ -1,0 +1,440 @@
+{
+  "schema": 1,
+  "upstream": "ExpressLRS/ExpressLRS",
+  "branch": "master",
+  "bootstrap_at": "2026-10-20T13:55:00Z",
+  "families": {
+    "3.x": "^3\\.\\d+\\.\\d+$",
+    "4.x": "^4\\.\\d+\\.\\d+$"
+  },
+  "max_attempts": 3,
+  "publication": "blocked: no authorized downstream publication route; existing owner, credential and human gates remain required",
+  "baseline": {
+    "355362519": {
+      "tag": "4.1.0",
+      "upstream_sha": "a9d4a9cb5b5687c4c9d7e9e7fbdf44ad93651da6",
+      "status": "baseline",
+      "published_at": "2026-07-17T17:02:11Z"
+    },
+    "344140431": {
+      "tag": "4.1.0-RC1",
+      "upstream_sha": "3069ab605e163739d5aa9b56443355e3d1032485",
+      "status": "prerelease",
+      "published_at": "2026-07-03T21:16:08Z"
+    },
+    "313637233": {
+      "tag": "4.0.1",
+      "upstream_sha": "b5a5b5fdbed0d8420d0b4f5a3c55f380557def74",
+      "status": "baseline",
+      "published_at": "2026-05-12T06:24:39Z"
+    },
+    "313637928": {
+      "tag": "3.6.4",
+      "upstream_sha": "b61c9e24305b2f80046a5e0b3c4edf56c4f059a3",
+      "status": "baseline",
+      "published_at": "2026-06-08T19:11:28Z"
+    },
+    "283853353": {
+      "tag": "4.0.0",
+      "upstream_sha": "ed9fc3e637207e8d656ffe9b1b3e8eef418573c6",
+      "status": "baseline",
+      "published_at": "2026-02-06T21:46:19Z"
+    },
+    "279737960": {
+      "tag": "4.0.0-RC4",
+      "upstream_sha": "a23b920f681d3618c32f73ff69e8734ef021cdda",
+      "status": "prerelease",
+      "published_at": "2026-01-26T13:51:59Z"
+    },
+    "272302425": {
+      "tag": "3.6.3",
+      "upstream_sha": "288efe1acf223e479f81349d68dda5505135301a",
+      "status": "baseline",
+      "published_at": "2026-01-21T18:38:19Z"
+    },
+    "272563149": {
+      "tag": "4.0.0-RC3",
+      "upstream_sha": "9bb96f624b80e30bc7d59ad2cd67802dac96e400",
+      "status": "prerelease",
+      "published_at": "2025-12-23T20:07:04Z"
+    },
+    "269574355": {
+      "tag": "4.0.0-RC2",
+      "upstream_sha": "ae32b104f0efe20185f0057385d2d10179ce07af",
+      "status": "prerelease",
+      "published_at": "2025-12-23T12:57:22Z"
+    },
+    "268106671": {
+      "tag": "4.0.0-RC1",
+      "upstream_sha": "c7d578c662d77c4e742a75a9621cfc9749c8c1d5",
+      "status": "prerelease",
+      "published_at": "2025-12-07T17:00:22Z"
+    },
+    "262727856": {
+      "tag": "3.6.2",
+      "upstream_sha": "0b0cce68253b6653a608566094dce6414a977e71",
+      "status": "baseline",
+      "published_at": "2025-11-18T13:41:55Z"
+    },
+    "235816278": {
+      "tag": "3.6.0",
+      "upstream_sha": "ff41f67aec3cb8c0be531ff66a9abba3f215285a",
+      "status": "baseline",
+      "published_at": "2025-09-05T21:52:05Z"
+    },
+    "222325313": {
+      "tag": "3.5.6",
+      "upstream_sha": "ee188b4efb9a707f682e8b2d966cd670de92ab50",
+      "status": "baseline",
+      "published_at": "2025-06-20T02:12:19Z"
+    },
+    "218202780": {
+      "tag": "3.5.5",
+      "upstream_sha": "2dd88468a753696a37e6954ab80a0dcd231e2afa",
+      "status": "baseline",
+      "published_at": "2025-05-13T20:15:30Z"
+    },
+    "210549132": {
+      "tag": "3.5.4",
+      "upstream_sha": "a6f9a2a76c688de1999a8697c33e363b300a76ed",
+      "status": "baseline",
+      "published_at": "2025-04-07T11:35:31Z"
+    },
+    "186077179": {
+      "tag": "3.5.3",
+      "upstream_sha": "40555e141efb0c93ea8d075ec47a27592355f924",
+      "status": "baseline",
+      "published_at": "2024-11-29T06:43:30Z"
+    },
+    "180905512": {
+      "tag": "3.5.2",
+      "upstream_sha": "7ac5f4d21cb18fb77cf2f5a60bf71716e861e533",
+      "status": "baseline",
+      "published_at": "2024-11-08T08:52:36Z"
+    },
+    "177892339": {
+      "tag": "3.5.1",
+      "upstream_sha": "e248004697a0ab2f930d462747cc5da38faf644c",
+      "status": "baseline",
+      "published_at": "2024-10-05T10:06:37Z"
+    },
+    "175322500": {
+      "tag": "3.5.0",
+      "upstream_sha": "b3b43ddfe5f066ae6aa73b8a319094ce8a7b2eea",
+      "status": "baseline",
+      "published_at": "2024-09-21T01:45:47Z"
+    },
+    "173169043": {
+      "tag": "3.5.0-RC2",
+      "upstream_sha": "b3b43ddfe5f066ae6aa73b8a319094ce8a7b2eea",
+      "status": "prerelease",
+      "published_at": "2024-09-07T04:42:34Z"
+    },
+    "171907913": {
+      "tag": "3.5.0-RC1",
+      "upstream_sha": "dd7fae73d4ed0dea7588e348187c17b4cedd2860",
+      "status": "prerelease",
+      "published_at": "2024-08-31T06:24:22Z"
+    },
+    "159980531": {
+      "tag": "3.4.3",
+      "upstream_sha": "41daca2a4ff782188c38fbef3c4f1a36e320b1a3",
+      "status": "baseline",
+      "published_at": "2024-06-22T02:12:29Z"
+    },
+    "158473124": {
+      "tag": "3.4.2",
+      "upstream_sha": "9cf33883fee5356898737ce3dc2680100408c28c",
+      "status": "baseline",
+      "published_at": "2024-06-02T03:10:11Z"
+    },
+    "156678582": {
+      "tag": "3.4.1",
+      "upstream_sha": "a7f27a5b9614c1c24d36bc7d761b0d1c7df3191c",
+      "status": "baseline",
+      "published_at": "2024-05-22T21:20:55Z"
+    },
+    "156361537": {
+      "tag": "3.4.0",
+      "upstream_sha": "499697ca7efc099050868d30578368a75df63d72",
+      "status": "baseline",
+      "published_at": "2024-05-18T11:47:46Z"
+    },
+    "153107086": {
+      "tag": "3.4.0-RC3",
+      "upstream_sha": "43b97c08ecde07dc40e59b410dffaf1683da859c",
+      "status": "prerelease",
+      "published_at": "2024-04-27T23:00:49Z"
+    },
+    "151662364": {
+      "tag": "3.4.0-RC2",
+      "upstream_sha": "c78c5d05bb1b189f3b915b6848ec95ecd5a74760",
+      "status": "prerelease",
+      "published_at": "2024-04-20T05:57:15Z"
+    },
+    "151019836": {
+      "tag": "3.4.0-RC1",
+      "upstream_sha": "d786b0215da2ffc69078855316ef060e144e3d7f",
+      "status": "prerelease",
+      "published_at": "2024-04-13T10:26:36Z"
+    },
+    "134842626": {
+      "tag": "3.3.2",
+      "upstream_sha": "2d98919b5a4c780d3d1c8400dd478ef99a4b3025",
+      "status": "baseline",
+      "published_at": "2024-01-06T03:07:23Z"
+    },
+    "118830232": {
+      "tag": "3.3.1",
+      "upstream_sha": "e051b89b23b5935b959ea9beddf685d857d03af9",
+      "status": "baseline",
+      "published_at": "2023-11-04T01:18:08Z"
+    },
+    "113034567": {
+      "tag": "3.3.0",
+      "upstream_sha": "ae9df3d202aa905358f0fdc1ca36718736ebdf38",
+      "status": "baseline",
+      "published_at": "2023-07-21T08:05:49Z"
+    },
+    "109628495": {
+      "tag": "3.3.0-RC2",
+      "upstream_sha": "5167d2496155808bd1502df79a162ae7f9c0cc8e",
+      "status": "prerelease",
+      "published_at": "2023-06-30T10:20:47Z"
+    },
+    "105577736": {
+      "tag": "3.3.0-RC1",
+      "upstream_sha": "079a91d3db39b64ea39bccd25f9bf4457659152d",
+      "status": "prerelease",
+      "published_at": "2023-06-10T10:10:54Z"
+    },
+    "97580825": {
+      "tag": "3.2.1",
+      "upstream_sha": "8dbbdbe442660713ba1de07828ceb20cdaa5e26a",
+      "status": "baseline",
+      "published_at": "2023-04-03T02:02:32Z"
+    },
+    "91896840": {
+      "tag": "2.5.2",
+      "upstream_sha": "6d9d5740a16fa4b1158dab07f304a0daff16604d",
+      "status": "baseline",
+      "published_at": "2023-02-09T18:44:38Z"
+    },
+    "88783924": {
+      "tag": "3.2.0",
+      "upstream_sha": "8d3388ef3369a2d8a64f92a80e42acb29f8e513e",
+      "status": "baseline",
+      "published_at": "2023-01-23T08:05:57Z"
+    },
+    "86468494": {
+      "tag": "3.1.2",
+      "upstream_sha": "4da3aa7a6efc2f175b052647aa151e6c337e7b07",
+      "status": "baseline",
+      "published_at": "2022-12-23T02:50:10Z"
+    },
+    "85341029": {
+      "tag": "3.1.1",
+      "upstream_sha": "2909ba2db2909b5c38a299eed575082f2894baf1",
+      "status": "baseline",
+      "published_at": "2022-12-09T06:52:34Z"
+    },
+    "80386896": {
+      "tag": "3.0.1",
+      "upstream_sha": "2470fce853f0f9d389aada1e249c4fa1c775b9f9",
+      "status": "baseline",
+      "published_at": "2022-10-21T06:30:33Z"
+    },
+    "76667104": {
+      "tag": "3.0.0",
+      "upstream_sha": "8aa1b03e804ee896e974a05c3d9aadfb93d17069",
+      "status": "baseline",
+      "published_at": "2022-09-09T06:50:47Z"
+    },
+    "72581673": {
+      "tag": "3.0.0-RC2",
+      "upstream_sha": "7855d1762c7193f2856bba664dbee55d1ebbd913",
+      "status": "prerelease",
+      "published_at": "2022-08-09T07:10:51Z"
+    },
+    "71112872": {
+      "tag": "3.0.0-RC1",
+      "upstream_sha": "71d1fa998a8482e6416e83ef9cc41d55eee3a0bb",
+      "status": "prerelease",
+      "published_at": "2022-07-02T03:54:20Z"
+    },
+    "69995893": {
+      "tag": "2.5.1",
+      "upstream_sha": "a7e2e414f4d0cb018aaf80071d501c67d60d090b",
+      "status": "baseline",
+      "published_at": "2022-06-22T09:45:41Z"
+    },
+    "66278466": {
+      "tag": "2.5.0",
+      "upstream_sha": "06f1e92dd4580c08d935d8e74b649bcfb6f6a412",
+      "status": "baseline",
+      "published_at": "2022-05-11T12:21:46Z"
+    },
+    "63827182": {
+      "tag": "2.4.0",
+      "upstream_sha": "3d7d96d126462319c07f55421cab4b2161889d5d",
+      "status": "baseline",
+      "published_at": "2022-04-12T10:20:20Z"
+    },
+    "60610252": {
+      "tag": "2.3.0",
+      "upstream_sha": "844ce601b6f2caf1176a56638bfce006f0f0375b",
+      "status": "baseline",
+      "published_at": "2022-03-08T11:30:58Z"
+    },
+    "58146016": {
+      "tag": "2.2.0",
+      "upstream_sha": "442a9d91983e64c0bcb17faef2ae5a4a7cb17e92",
+      "status": "baseline",
+      "published_at": "2022-01-28T03:21:12Z"
+    },
+    "56578928": {
+      "tag": "2.1.0",
+      "upstream_sha": "96c62a84c182388cd0590cf3897cb337f13f55e4",
+      "status": "baseline",
+      "published_at": "2022-01-21T22:39:25Z"
+    },
+    "55709528": {
+      "tag": "2.0.1",
+      "upstream_sha": "beff021f28fa262bd1e836d81ebe026c232c5c26",
+      "status": "baseline",
+      "published_at": "2021-12-23T21:00:26Z"
+    },
+    "54826902": {
+      "tag": "2.0.0",
+      "upstream_sha": "5c4808377ae8eb1e95e73c01501b28cc59d80925",
+      "status": "baseline",
+      "published_at": "2021-12-11T07:59:23Z"
+    },
+    "54202199": {
+      "tag": "2.0.0-RC4",
+      "upstream_sha": "ec6f11e3181aaff5fe365176e0577af25ab69ffd",
+      "status": "prerelease",
+      "published_at": "2021-12-04T22:45:28Z"
+    },
+    "53785771": {
+      "tag": "2.0.0-RC3",
+      "upstream_sha": "f694862950840b1a24bc4330dd527c7535643261",
+      "status": "prerelease",
+      "published_at": "2021-11-23T09:57:52Z"
+    },
+    "53234394": {
+      "tag": "2.0.0-RC2",
+      "upstream_sha": "a8d405a5b682146e495da8b2c9b59675e7f894a8",
+      "status": "prerelease",
+      "published_at": "2021-11-12T12:07:42Z"
+    },
+    "54202493": {
+      "tag": "1.2.1",
+      "upstream_sha": "1d2d55bd6b708230b5503d1219ec80c432f63097",
+      "status": "baseline",
+      "published_at": "2021-11-29T07:34:01Z"
+    },
+    "52961972": {
+      "tag": "2.0.0-RC1",
+      "upstream_sha": "6f798aa0b7f2217c80f85afa78e299fe4fe8fc19",
+      "status": "prerelease",
+      "published_at": "2021-11-09T11:07:00Z"
+    },
+    "49507578": {
+      "tag": "1.2.0",
+      "upstream_sha": "32304ac466d5b73890bec5eb90ed834f16395eef",
+      "status": "baseline",
+      "published_at": "2021-10-21T06:20:33Z"
+    },
+    "49108001": {
+      "tag": "1.1.0",
+      "upstream_sha": "e7cbb6195c462057b865eeea3ffc60ba0cb77fc8",
+      "status": "baseline",
+      "published_at": "2021-09-07T07:38:23Z"
+    },
+    "47090247": {
+      "tag": "1.0.1",
+      "upstream_sha": "1d543bc71424f1eaadaab91ff20f3a12adc90bc2",
+      "status": "baseline",
+      "published_at": "2021-07-31T13:21:20Z"
+    },
+    "46354540": {
+      "tag": "1.0.0",
+      "upstream_sha": "d9d30e7289f0f688528daedb14704410300bbdd7",
+      "status": "baseline",
+      "published_at": "2021-07-17T07:52:08Z"
+    },
+    "45667679": {
+      "tag": "1.0.0-RC9",
+      "upstream_sha": "6358aa62e7342a41b44fbdab3f82b78badc345aa",
+      "status": "prerelease",
+      "published_at": "2021-07-04T01:38:09Z"
+    },
+    "44047772": {
+      "tag": "1.0.0-RC8",
+      "upstream_sha": "98310a97f70b72323b3407f39beeb0c065ba118e",
+      "status": "prerelease",
+      "published_at": "2021-06-03T14:41:23Z"
+    },
+    "43291378": {
+      "tag": "1.0.0-RC7",
+      "upstream_sha": "b64fd7f394158b76341d0ba5209536d476c686b2",
+      "status": "prerelease",
+      "published_at": "2021-05-20T14:23:57Z"
+    },
+    "43287147": {
+      "tag": "1.0.0-RC6",
+      "upstream_sha": "d103bc98f745edab3a376ce2c55b985d3db187fd",
+      "status": "prerelease",
+      "published_at": "2021-05-20T13:21:31Z"
+    },
+    "42944757": {
+      "tag": "1.0.0-RC5",
+      "upstream_sha": "e250647bc22633db707dc74d799f2f67f4742fab",
+      "status": "prerelease",
+      "published_at": "2021-05-14T08:35:15Z"
+    },
+    "42547177": {
+      "tag": "1.0.0-RC3",
+      "upstream_sha": "38866e3de6f032fbf944182c87440cf8e1d2340d",
+      "status": "prerelease",
+      "published_at": "2021-05-06T15:59:12Z"
+    },
+    "42135400": {
+      "tag": "1.0.0-RC2",
+      "upstream_sha": "ad715da4fe2671cef044fdb641f9a735acdc16ca",
+      "status": "prerelease",
+      "published_at": "2021-04-28T12:44:27Z"
+    },
+    "41836113": {
+      "tag": "1.0.0-RC1",
+      "upstream_sha": "92df80ddb7f1e0572a9dad27e91946c03c5d0908",
+      "status": "prerelease",
+      "published_at": "2021-04-22T12:02:50Z"
+    },
+    "36427997": {
+      "tag": "0.1.3-RC2",
+      "upstream_sha": "2942a6da541410c9bc737805273ef48bba983eea",
+      "status": "prerelease",
+      "published_at": "2021-01-15T04:33:20Z"
+    },
+    "36057229": {
+      "tag": "0.1.0-RC1",
+      "upstream_sha": "92f06611c2893a7a11e539dc05bb6b31b3490fb9",
+      "status": "prerelease",
+      "published_at": "2021-01-06T17:15:42Z"
+    }
+  },
+  "dependencies": {
+    "targets": {
+      "repository": "ExpressLRS/targets",
+      "ref": "master"
+    }
+  },
+  "heavy_workflows": [
+    "build.yml"
+  ],
+  "automatic_workflows": [
+    "build.yml"
+  ]
+}
