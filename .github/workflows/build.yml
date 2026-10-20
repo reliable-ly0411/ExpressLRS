@@ -1,5 +1,22 @@
 name: Build ExpressLRS
-on: [push, pull_request]
+'on':
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: Explicit manual source ref (blank uses selected workflow ref)
+        type: string
+        default: ''
+  workflow_call:
+    inputs:
+      source_ref:
+        description: Explicit manual source ref (blank uses selected workflow ref)
+        type: string
+        default: ''
+      release_manifest:
+        type: string
+        default: ''
+        description: Pinned manifest from the release gate; empty only for explicit manual builds
+
 jobs:
   build-and-validate-artifacts:
     runs-on: ubuntu-latest
@@ -7,6 +24,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          ref: ${{ inputs.source_ref || github.sha }}
+      - name: Reconstruct and verify pinned release source
+        if: inputs.release_manifest != ''
+        shell: bash
+        env:
+          RELEASE_MANIFEST: ${{ inputs.release_manifest }}
+        run: python3 .github/release_policy/policy.py materialize
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
@@ -51,6 +77,15 @@ jobs:
 
     - name: Checkout
       uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+        ref: ${{ inputs.source_ref || github.sha }}
+    - name: Reconstruct and verify pinned release source
+      if: inputs.release_manifest != ''
+      shell: bash
+      env:
+        RELEASE_MANIFEST: ${{ inputs.release_manifest }}
+      run: python3 .github/release_policy/policy.py materialize
 
     - name: Set up Python
       uses: actions/setup-python@v6
@@ -61,7 +96,7 @@ jobs:
       uses: actions/cache@v5
       with:
         path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ matrix.target }}
+        key: ${{ runner.os }}-pip-native
 
     - name: Install PlatformIO
       run: |
@@ -92,6 +127,16 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+        ref: ${{ inputs.source_ref || github.sha }}
+    - name: Reconstruct and verify pinned release source
+      if: inputs.release_manifest != ''
+      shell: bash
+      env:
+        RELEASE_MANIFEST: ${{ inputs.release_manifest }}
+      run: python3 .github/release_policy/policy.py materialize
+
     - id: set-targets
       run: echo "targets=[$( (grep '\[env:.*UART\]' src/targets/*.ini ; grep -r '\[env:.*STLINK\]' src/targets/) | sed 's/.*://' | sed s/.$// | egrep "(STLINK|UART)" | grep -v DEPRECATED | tr '\n' ','  | sed 's/,$/"\n/' | sed 's/,/","/'g | sed 's/^/"/')]" >> $GITHUB_OUTPUT
 
@@ -109,6 +154,15 @@ jobs:
 
     - name: Checkout
       uses: actions/checkout@v6
+      with:
+        fetch-depth: 0
+        ref: ${{ inputs.source_ref || github.sha }}
+    - name: Reconstruct and verify pinned release source
+      if: inputs.release_manifest != ''
+      shell: bash
+      env:
+        RELEASE_MANIFEST: ${{ inputs.release_manifest }}
+      run: python3 .github/release_policy/policy.py materialize
 
     - name: Set up Python
       uses: actions/setup-python@v6
@@ -190,7 +244,6 @@ jobs:
         name: temp-${{ matrix.target }}
         path: ~/artifacts/**/*
         retention-days: 1
-      continue-on-error: true
 
   firmware:
     needs: [build, test]
@@ -200,11 +253,19 @@ jobs:
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          ref: ${{ inputs.source_ref || github.sha }}
+      - name: Reconstruct and verify pinned release source
+        if: inputs.release_manifest != ''
+        shell: bash
+        env:
+          RELEASE_MANIFEST: ${{ inputs.release_manifest }}
+        run: python3 .github/release_policy/policy.py materialize
 
       - name: Checkout targets repo
         uses: actions/checkout@v6
         with:
           repository: ExpressLRS/targets
+          ref: ${{ inputs.release_manifest && fromJSON(inputs.release_manifest).dependencies.targets || 'master' }}
           path: src/hardware
 
       - name: Get firmware artifacts
@@ -254,6 +315,7 @@ jobs:
           version: "2.22.35"
 
       - name: Upload firmware bundle to ExpressLRS artifactory
+        if: github.repository == 'ExpressLRS/ExpressLRS'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
