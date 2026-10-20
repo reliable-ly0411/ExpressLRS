@@ -8,7 +8,7 @@
     "4.x": "^4\\.\\d+\\.\\d+$"
   },
   "max_attempts": 3,
-  "publication": "blocked: no authorized downstream publication route; existing owner, credential and human gates remain required",
+  "publication": "blocked: no verified downstream publication recipe; existing owner, credential and human gates remain required",
   "baseline": {
     "355362519": {
       "tag": "4.1.0",
