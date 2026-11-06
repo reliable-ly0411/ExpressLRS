@@ -1,10 +1,10 @@
 name: Cleanup stale artifacts
 on:
-  schedule:
-    - cron: "30 2 * * *"
+  workflow_dispatch:
 
 jobs:
   cleanup-artifacts:
+    if: github.repository == 'ExpressLRS/ExpressLRS'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

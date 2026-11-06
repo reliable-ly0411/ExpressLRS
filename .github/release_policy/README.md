@@ -15,6 +15,8 @@ Validation: run `python3 -m unittest discover -s .github/release_policy -p 'test
 
 ## Current publication limits
 
-The 3.x and 4.x release families have independent identities and baselines. The auxiliary ExpressLRS/targets checkout is pinned when a release is recognized. Downstream native artifacts stay in Actions; uploading to the official ExpressLRS S3/R2 storage is owner-gated and is not enabled for this fork. Existing cleanup jobs and credentials are untouched.
+The 3.x and 4.x release families have independent identities and baselines. The auxiliary ExpressLRS/targets checkout is pinned when a release is recognized. Downstream native artifacts stay in Actions; uploading to the official ExpressLRS S3/R2 storage is owner-gated and is not enabled for this fork. Inherited stale-issue and R2 artifact cleanup workflows are manual-only, and every job requires `github.repository == 'ExpressLRS/ExpressLRS'`, so they cannot close issues/PRs or delete R2 artifacts in this fork. Their maintenance bodies and existing permissions are retained; credentials are unchanged.
+
+As of 2026-11-06, GitHub has disabled Actions at the fork level. Repository Actions must be re-enabled separately by the owner before scheduled runs can resume; this workflow change does not re-enable them. The daily `27 4 * * *` Sync upstream schedule, release gate, source pinning and publication blocks remain in place. Manual Sync upstream defaults to `sync` for verification without a release build.
 
 This implements release-gated candidate validation, not a complete automatic public release pipeline. A new upstream formal release is necessary but not sufficient for publication; unsupported destinations, signing/identity requirements and human gates remain blocking.

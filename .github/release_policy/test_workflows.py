@@ -33,6 +33,35 @@ class WorkflowPolicyTests(unittest.TestCase):
         self.assertIn("github.event_name == 'schedule' || inputs.action == 'check-releases'", text)
         self.assertNotIn('workflow_run:', text)
         self.assertIn('cancel-in-progress: false', text)
+        self.assertIn('cron: "27 4 * * *"', text)
+
+    def test_inherited_maintenance_is_manual_only(self):
+        for filename in ('stale.yml', 'artifacts.yml'):
+            with self.subTest(workflow=filename):
+                text = (ROOT / 'workflows' / filename).read_text()
+                events = re.search(
+                    r"^'?on'?\s*:\n([\s\S]*?)(?=^[A-Za-z][A-Za-z_-]*:)", text, re.M
+                ).group(1)
+                self.assertEqual(
+                    re.findall(r'^  ([A-Za-z_][A-Za-z0-9_-]*):', events, re.M),
+                    ['workflow_dispatch'],
+                )
+
+    def test_every_inherited_maintenance_job_is_upstream_only(self):
+        for filename in ('stale.yml', 'artifacts.yml'):
+            with self.subTest(workflow=filename):
+                text = (ROOT / 'workflows' / filename).read_text()
+                jobs = text.split('\njobs:\n', 1)[1]
+                job_blocks = re.findall(
+                    r'^  ([A-Za-z_][A-Za-z0-9_-]*):\n(.*?)(?=^  [A-Za-z_][A-Za-z0-9_-]*:|\Z)',
+                    jobs,
+                    re.M | re.S,
+                )
+                self.assertTrue(job_blocks)
+                for job, body in job_blocks:
+                    with self.subTest(job=job):
+                        guards = re.findall(r'^    if: (.+)$', body, re.M)
+                        self.assertEqual(guards, ["github.repository == 'ExpressLRS/ExpressLRS'"])
 
     def test_publication_interface_does_not_rebuild_or_publish(self):
         text = (ROOT / 'workflows/promote-release.yml').read_text()
