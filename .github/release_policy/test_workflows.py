@@ -33,7 +33,7 @@ class WorkflowPolicyTests(unittest.TestCase):
         self.assertIn("github.event_name == 'schedule' || inputs.action == 'check-releases'", text)
         self.assertNotIn('workflow_run:', text)
         self.assertIn('cancel-in-progress: false', text)
-        self.assertIn('cron: "27 4 * * *"', text)
+        self.assertIn('cron: "31 4 * * *"', text)
 
     def test_inherited_maintenance_is_manual_only(self):
         for filename in ('stale.yml', 'artifacts.yml'):
